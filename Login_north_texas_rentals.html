@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | North Texas Rentals</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #007bff;
+            background: linear-gradient(135deg, #0056b3 50%, #d92525 50%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .contenedor-login {
+            display: flex;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 800px;
+            max-width: 90%;
+            min-height: 500px;
+        }
+        .columna-formulario {
+            flex: 1;
+            padding: 40px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .contenedor-logo {
+            margin-bottom: 40px;
+            text-align: left;
+        }
+        .imagen-logo {
+            max-width: 120px; 
+            height: auto;
+            display: block;
+        }
+        h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+            margin-top: 0;
+        }
+        .campo-entrada {
+            margin-bottom: 20px;
+        }
+        .campo-entrada label {
+            display: block;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .campo-entrada input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .enlace-olvido {
+            display: block;
+            text-align: right;
+            font-size: 14px;
+            color: #666;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+        .boton-login {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .boton-login:hover {
+            background-color: #0056b3;
+        }
+        .enlace-registro {
+            margin-top: 25px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .enlace-registro a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+            margin-left: 5px;
+        }
+        .enlace-registro a:hover {
+            text-decoration: underline;
+        }
+        .columna-imagen {
+            flex: 1;
+            background-image: url('Maquinaria_north_texas.jpg'); 
+            background-color: #0056b3;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .columna-imagen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 50, 150, 0.4); 
+            z-index: 1;
+        }
+        .nombre-empresa {
+            font-size: 28px;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contenedor-login">
+    <div class="columna-formulario">
+        <div class="contenedor-logo">
+            <img src="Logo_north_texas2.0.png" alt="Logo North Texas Rentals" class="imagen-logo">
+        </div>
+        <h2>LOGIN</h2>
+        <form id="formulario-login">
+            <div class="campo-entrada">
+                <label for="correo">EMAIL ADDRESS</label>
+                <input type="email" id="correo" name="correo" placeholder="example@ntrentals.com" required>
+            </div>
+            <div class="campo-entrada">
+                <label for="contrasena">PASSWORD</label>
+                <input type="password" id="contrasena" name="contrasena" placeholder="••••••••" required>
+            </div>
+            <a href="#" class="enlace-olvido">Forgot your pyassword?</a>
+            <button type="submit" class="boton-login">LOGIN</button>
+            <div class="enlace-registro">
+                Don't have an account? <a href="Registro_North_texas_rentals.html">Sign up here</a>
+            </div>
+        </form>
+    </div>
+    <div class="columna-imagen">
+        <div class="nombre-empresa">North Texas Rentals</div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBI28ZY62HS-snbGfVJN7HJGBdCMRzG0wU",
+      authDomain: "northtexas-cfd0f.firebaseapp.com",
+      projectId: "northtexas-cfd0f",
+      storageBucket: "northtexas-cfd0f.appspot.com",
+      messagingSenderId: "1064140086938",
+      appId: "1:1064140086938:web:20acaf176ccc23ff200923"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const formulario = document.getElementById('formulario-login');
+    const adminEmails = ["admin@gmail.com"];
+
+    formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const correo = document.getElementById('correo').value;
+        const contrasena = document.getElementById('contrasena').value;
+
+        signInWithEmailAndPassword(auth, correo, contrasena)
+        .then(() => {
+        
+            if(adminEmails.includes(correo)){
+                window.location.href = 'admin1.html';
+            } else {
+                window.location.href = 'North_texas_rentals.html';
+            }
+        })
+        .catch((error) => {
+            alert('Error: ' + error.message);
+        });
+    });
+</script>
+
+</body>
+</html>

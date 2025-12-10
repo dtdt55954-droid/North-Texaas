@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content="0;url=Login_north_texas_rentals.html" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Redirigiendo…</title>
+  </head>
+  <body style="font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;">
+    <div style="text-align:center;max-width:420px;padding:20px;">
+      <h2>Redirigiendo a la página de inicio de sesión</h2>
+      <p>Si no eres redirigido automáticamente, haz click en el siguiente enlace:</p>
+      <p><a href="Login_north_texas_rentals.html">Ir al Login</a></p>
+    </div>
+    <script>
+      // Fallback por si el meta-refresh no funciona
+      setTimeout(()=>{
+        if(location.pathname.indexOf('Login_north_texas_rentals.html')===-1) location.href = 'Login_north_texas_rentals.html';
+      }, 500);
+    </script>
+  </body>
+</html>

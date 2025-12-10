@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Catalog | North Texas Rentals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- ESTILOS GENERALES --- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Roboto', sans-serif; 
+      margin: 0; 
+      padding: 0; 
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 20px 50px; 
+      border-bottom: 4px solid #d60000; 
+      position: sticky; 
+      top: 0; 
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.15);
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+      }
+    }
+
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    header img { 
+      height: 55px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 50, 0.1));
+    }
+
+    header img:hover {
+      transform: scale(1.1) rotateZ(5deg);
+      filter: drop-shadow(0 8px 16px rgba(214, 0, 0, 0.3));
+    }
+
+    .company-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: #00008b;
+      letter-spacing: 1px;
+    }
+
+    .company-name span {
+      color: #d60000;
+      font-weight: 800;
+    }
+
+    nav { 
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    nav a { 
+      text-decoration: none; 
+      color: #333; 
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(214, 0, 0, 0.1);
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+
+    nav a:hover::before {
+      left: 0;
+    }
+
+    nav a:hover { 
+      color: #d60000;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(214, 0, 0, 0.2);
+    }
+
+    .contact-btn { 
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white; 
+      padding: 12px 28px; 
+      border-radius: 8px;
+      text-decoration: none; 
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 6px 20px rgba(214, 0, 0, 0.35);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid #d60000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .contact-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .contact-btn:hover { 
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 10px 30px rgba(214, 0, 0, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .catalog-container { 
+      max-width: 1200px; 
+      margin: 40px auto; 
+      padding: 0 20px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .back-link-btn { 
+      display: inline-block; 
+      padding: 14px 35px; 
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      border: 2px solid #00008b; 
+      color: #00008b; 
+      text-decoration: none; 
+      font-weight: 700;
+      border-radius: 8px; 
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 50, 0.1);
+    }
+
+    .back-link-btn:hover { 
+      background: linear-gradient(135deg, #00008b 0%, #001080 100%);
+      color: white;
+      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .bottom-nav { 
+      text-align: center; 
+      margin-top: 40px; 
+      margin-bottom: 40px;
+    }
+
+    .section-title { 
+      font-size: 42px; 
+      font-weight: 700; 
+      color: #00008b; 
+      margin-bottom: 15px;
+      margin-top: 60px;
+      border-bottom: 3px solid #d60000; 
+      display: inline-block; 
+      padding-bottom: 10px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @media (max-width: 768px) {
+      .section-title {
+        font-size: 28px;
+      }
+    }
+
+    .section-description { 
+      font-size: 16px; 
+      color: #666; 
+      margin-bottom: 40px;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+      line-height: 1.6;
+    }
+
+    .items-grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+      gap: 30px; 
+      margin-bottom: 60px;
+    }
+
+    .equipment-card { 
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 25px; 
+      border-radius: 16px; 
+      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.1);
+      text-align: center; 
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex; 
+      flex-direction: column; 
+      justify-content: space-between;
+      border: 2px solid transparent;
+      animation: fadeInUp 0.8s ease-out;
+      cursor: pointer;
+    }
+
+    .equipment-card:nth-child(1) { animation-delay: 0.1s; }
+    .equipment-card:nth-child(2) { animation-delay: 0.2s; }
+    .equipment-card:nth-child(3) { animation-delay: 0.3s; }
+    .equipment-card:nth-child(4) { animation-delay: 0.4s; }
+    .equipment-card:nth-child(5) { animation-delay: 0.5s; }
+    .equipment-card:nth-child(6) { animation-delay: 0.6s; }
+
+    .equipment-card:hover { 
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 50, 0.2);
+      border-color: #d60000;
+    }
+
+    .equipment-card img { 
+      width: 100%; 
+      height: 220px; 
+      object-fit: contain; 
+      margin-bottom: 20px; 
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 15px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .equipment-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .equipment-card h3 { 
+      font-size: 20px; 
+      font-weight: 700; 
+      margin: 10px 0; 
+      color: #00008b;
+      transition: color 0.3s ease;
+    }
+
+    .equipment-card:hover h3 {
+      color: #d60000;
+    }
+
+    .equipment-card p { 
+      font-size: 14px; 
+      color: #666; 
+      margin-bottom: 20px; 
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .pricing { 
+      display: flex; 
+      justify-content: space-around; 
+      margin-bottom: 25px; 
+      font-size: 14px; 
+      font-weight: 600;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      padding: 15px; 
+      border-radius: 10px;
+    }
+
+    .pricing span { 
+      color: #d60000; 
+      font-weight: 800;
+      font-size: 16px;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .rent-now-btn { 
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white; 
+      padding: 16px 0; 
+      border: none; 
+      border-radius: 8px; 
+      cursor: pointer; 
+      font-weight: 700;
+      width: 100%; 
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(214, 0, 0, 0.3);
+    }
+
+    .rent-now-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .rent-now-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .rent-now-btn:hover { 
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 10px 30px rgba(214, 0, 0, 0.5);
+      transform: translateY(-3px) scale(1.01);
+    }
+
+    footer { 
+      background: linear-gradient(135deg, #00084d 0%, #001080 100%);
+      color: white; 
+      padding: 60px 20px 30px;
+      margin-top: 80px; 
+      font-size: 14px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    footer .footer-container { 
+      display: flex; 
+      justify-content: space-between; 
+      flex-wrap: wrap; 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      align-items: center;
+      gap: 30px;
+    }
+
+    @media (max-width: 768px) {
+      footer .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+
+    footer .footer-logo-text { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: flex-start;
+    }
+
+    @media (max-width: 768px) {
+      footer .footer-logo-text {
+        align-items: center;
+      }
+    }
+
+    footer h3 { 
+      font-size: 24px; 
+      font-weight: 800; 
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    footer p { 
+      margin: 0; 
+      color: #ccc;
+      line-height: 1.8;
+    }
+
+    footer .footer-links { 
+      display: flex; 
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      footer .footer-links {
+        flex-direction: column;
+      }
+    }
+
+    footer a { 
+      color: #87ceeb; 
+      text-decoration: none; 
+      margin: 0 10px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    footer a:hover { 
+      color: #d60000;
+      text-decoration: underline;
+    }
+
+    footer .social-icons {
+      display: flex;
+      gap: 15px;
+    }
+
+    footer .social-icons img { 
+      width: 28px; 
+      height: 28px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+      cursor: pointer;
+    }
+
+    footer .social-icons img:hover {
+      transform: scale(1.2) rotateZ(10deg);
+      filter: brightness(1.2) drop-shadow(0 4px 8px rgba(214, 0, 0, 0.4));
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-section">
+      <img src="Logo_north_texas2.0.png" alt="North Texas Rentals Logo">
+      <div class="company-name">North Texas <span>Rentals</span></div>
+    </div>
+    <nav>
+      <a href="North_texas_rentals.html">Home</a> 
+      <a href="#" style="color: #d60000;">Catalog</a> 
+      <a href="Data_north_texas_rentals.html">Data</a>
+      <a href="Notifications_north_texas_rentals.html">Notifications</a>
+      <a class="contact-btn" href="Contact_north_texas_rentals.html">CONTACT US</a>
+    </nav>
+  </header>
+
+  <div class="catalog-container">
+    
+    <h2 class="section-title">Heavy Machinery</h2>
+    <p class="section-description">Explore our fleet of heavy-duty equipment ready for any construction site.</p>
+    
+    <div class="items-grid">
+        <div class="equipment-card">
+            <img src="TL750.png" alt="Machine 1">
+            <h3>Kioti Tractor TL750</h3>
+            <p>Compact, powerful, and versatile Kioti tractor.</p>
+            <div class="pricing">
+                <div>Day: <span>$300</span></div>
+                <div>Week: <span>$1200</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Kioti Tractor TL750'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Sany.png" alt="Machine 2">
+            <h3>Sany Excavator 35u</h3>
+            <p>High efficiency excavator for digging and lifting.</p>
+            <div class="pricing">
+                <div>Day: <span>$350</span></div>
+                <div>Week: <span>$1300</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Sany Excavator 35u'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Kubota.png" alt="Machine 3">
+            <h3>Kubota Excavator SVL 65-2</h3>
+            <p>Reliable excavator with advanced hydraulic system.</p>
+            <div class="pricing">
+                <div>Day: <span>$320</span></div>
+                <div>Week: <span>$1250</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Kubota Excavator SVL 65-2'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Mini skid.png" alt="Machine 4">
+            <h3>Mini Skid Steer SCL 1000</h3>
+            <p>Versatile loader for earthmoving and material handling.</p>
+            <div class="pricing">
+                <div>Day: <span>$250</span></div>
+                <div>Week: <span>$1000</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Mini Skid Steer SCL 1000'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Sany 26u.png" alt="Machine 5">
+            <h3>Sany 26u</h3>
+            <p>Heavy duty bulldozer for pushing large quantities of soil.</p>
+            <div class="pricing">
+                <div>Day: <span>$500</span></div>
+                <div>Week: <span>$2000</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Sany 26u'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="TU_IMAGEN_MAQUINA_6.png" alt="Machine 6">
+            <h3>Backhoe Loader</h3>
+            <p>Classic backhoe for digging trenches and loading.</p>
+            <div class="pricing">
+                <div>Day: <span>$310</span></div>
+                <div>Week: <span>$1220</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Backhoe Loader'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="TU_IMAGEN_MAQUINA_7.png" alt="Machine 7">
+            <h3>Telehandler 5k</h3>
+            <p>Reach heavy loads at height with stability.</p>
+            <div class="pricing">
+                <div>Day: <span>$400</span></div>
+                <div>Week: <span>$1500</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Telehandler 5k'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="TU_IMAGEN_MAQUINA_8.png" alt="Machine 8">
+            <h3>Vibratory Roller</h3>
+            <p>Essential for compacting soil, gravel, or asphalt.</p>
+            <div class="pricing">
+                <div>Day: <span>$250</span></div>
+                <div>Week: <span>$950</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Vibratory Roller'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="TU_IMAGEN_MAQUINA_9.png" alt="Machine 9">
+            <h3>Dump Truck 10T</h3>
+            <p>Standard dump truck for transporting loose material.</p>
+            <div class="pricing">
+                <div>Day: <span>$450</span></div>
+                <div>Week: <span>$1800</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Dump Truck 10T'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="TU_IMAGEN_MAQUINA_10.png" alt="Machine 10">
+            <h3>Scissor Lift</h3>
+            <p>Safe platform for working at moderate heights.</p>
+            <div class="pricing">
+                <div>Day: <span>$150</span></div>
+                <div>Week: <span>$600</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Scissor Lift'">Rent now</button>
+        </div>
+    </div>
+
+    <h2 class="section-title">Accessories & Attachments</h2>
+    <p class="section-description">Enhance your machinery with our range of specialized attachments.</p>
+
+    <div class="items-grid">
+        <div class="equipment-card">
+            <img src="Accs_motosierra.png" alt="Accessory 1">
+            <h3>Motosierra</h3>
+            <p>Heavy duty breaker for demolition tasks.</p>
+            <div class="pricing">
+                <div>Day: <span>$100</span></div>
+                <div>Week: <span>$400</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Motosierra'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Accs_pala.png" alt="Accessory 2">
+            <h3>Pala</h3>
+            <p>Perfect for drilling holes for fencing or trees.</p>
+            <div class="pricing">
+                <div>Day: <span>$80</span></div>
+                <div>Week: <span>$320</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Pala'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Accs_rotomartilo.png" alt="Accessory 3">
+            <h3>Rotomartillo</h3>
+            <p>Turn your loader into a forklift easily.</p>
+            <div class="pricing">
+                <div>Day: <span>$50</span></div>
+                <div>Week: <span>$200</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Rotomartillo'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="Accs_taladro.png" alt="Accessory 4">
+            <h3>Taladro</h3>
+            <p>Narrow bucket specifically designed for trenches.</p>
+            <div class="pricing">
+                <div>Day: <span>$40</span></div>
+                <div>Week: <span>$160</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Taladro'">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+            <img src="TU_IMAGEN_ACCESORIO_5.png" alt="Accessory 5">
+            <h3>Grapple Bucket</h3>
+            <p>Ideal for moving brush, logs, and debris.</p>
+            <div class="pricing">
+                <div>Day: <span>$90</span></div>
+                <div>Week: <span>$360</span></div>
+            </div>
+            <button class="rent-now-btn" onclick="window.location.href='Request_north_texas_rentals.html?machine=Grapple Bucket'">Rent now</button>
+        </div>
+    </div>
+    
+    <div class="bottom-nav">
+        <a href="North_texas_rentals.html" class="back-link-btn">← Return to Home</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo-text">
+        <h3>North Texas Rentals</h3>
+      </div>
+      <div class="footer-links">
+        <p>By using this application you accept our <a href="#">terms of use</a> and our <a href="#">privacy policy</a>.</p>
+      </div>
+      <div class="social-icons">
+          <img src="instagram.png" alt="Instagram">
+          <img src="Facebook.png" alt="Facebook">
+          <img src="whatsapp-icon.png" alt="WhatsApp">
+          <img src="email-icon.png" alt="Email">
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

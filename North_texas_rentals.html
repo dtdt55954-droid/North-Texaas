@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leaders in Equipment Rental | North Texas Rentals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(30px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 20px rgba(214, 0, 0, 0.5); }
+      50% { box-shadow: 0 0 30px rgba(214, 0, 0, 0.8); }
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: #333;
+      overflow-x: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 20px 50px;
+      border-bottom: 4px solid #d60000;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.15);
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        flex-wrap: wrap;
+      }
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      animation: slideInRight 0.6s ease-out;
+    }
+    
+    header img {
+      height: 55px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 50, 0.1));
+    }
+    
+    header img:hover {
+      transform: scale(1.1) rotateZ(5deg);
+      filter: drop-shadow(0 8px 16px rgba(214, 0, 0, 0.3));
+    }
+    
+    .company-name {
+      font-size: 26px;
+      font-weight: 700;
+      color: #00008b;
+      letter-spacing: 1px;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+    
+    .company-name span {
+      color: #d60000;
+      font-weight: 800;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      animation: fadeInDown 0.6s ease-out 0.3s both;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      padding: 12px 20px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(214, 0, 0, 0.1), rgba(214, 0, 0, 0.05));
+      transition: left 0.3s ease;
+      z-index: -1;
+    }
+    
+    nav a:hover::before {
+      left: 0;
+    }
+    
+    nav a:hover {
+      color: #d60000;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 12px rgba(214, 0, 0, 0.2);
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 8px;
+      left: 20px;
+      right: 20px;
+      height: 2px;
+      background: linear-gradient(90deg, #d60000, transparent);
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+    }
+    
+    nav a:hover::after {
+      transform: scaleX(1);
+    }
+    .contact-btn {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 6px 20px rgba(214, 0, 0, 0.35);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border: 2px solid #d60000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .contact-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .contact-btn:hover {
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 10px 30px rgba(214, 0, 0, 0.5);
+      transform: translateY(-3px);
+    }
+
+    #headerLogoutBtn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #d60000 100%);
+      color: white;
+      padding: 12px 28px;
+      border: 2px solid #ff6b6b;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 20px rgba(255, 107, 107, 0.35);
+      margin-left: 10px;
+      display: inline-block !important;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInDown 0.6s ease-out 0.4s both;
+    }
+
+    #headerLogoutBtn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    #headerLogoutBtn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    #headerLogoutBtn:hover {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      box-shadow: 0 10px 30px rgba(255, 107, 107, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .hero-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 60px 50px;
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 50, 0.1);
+      margin-bottom: 60px;
+      gap: 40px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @media (max-width: 968px) {
+      .hero-section {
+        flex-direction: column;
+        padding: 40px 30px;
+      }
+    }
+
+    .hero-text {
+      width: 50%;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @media (max-width: 968px) {
+      .hero-text {
+        width: 100%;
+      }
+    }
+
+    .hero-text h1 {
+      font-size: 48px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      color: #00008b;
+      animation: slideInRight 0.8s ease-out 0.3s both;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 32px;
+      }
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #666;
+      line-height: 1.6;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .hero-image {
+      width: 45%;
+      position: relative;
+      animation: slideInRight 0.8s ease-out 0.3s both;
+    }
+
+    @media (max-width: 968px) {
+      .hero-image {
+        width: 100%;
+      }
+    }
+
+    .hero-image img {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 20px 40px rgba(0, 0, 50, 0.15);
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .hero-image img:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(214, 0, 0, 0.25);
+    }
+
+    .why-choose-us {
+      text-align: center;
+      margin-bottom: 80px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .why-choose-us h2 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #00008b;
+      animation: fadeInDown 0.8s ease-out 0.2s both;
+    }
+
+    @media (max-width: 768px) {
+      .why-choose-us h2 {
+        font-size: 28px;
+      }
+    }
+
+    .why-choose-us p {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 50px;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 20px;
+    }
+
+    .feature-item {
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.08);
+      text-align: center;
+      border-left: 4px solid #d60000;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      animation: fadeInUp 0.8s ease-out;
+      cursor: pointer;
+    }
+
+    .feature-item:nth-child(1) { animation-delay: 0.2s; }
+    .feature-item:nth-child(2) { animation-delay: 0.3s; }
+    .feature-item:nth-child(3) { animation-delay: 0.4s; }
+    .feature-item:nth-child(4) { animation-delay: 0.5s; }
+
+    .feature-item:hover {
+      transform: translateY(-15px);
+      box-shadow: 0 20px 50px rgba(0, 0, 50, 0.2);
+      border-left-color: #00008b;
+      border-left-width: 6px;
+    }
+
+    .feature-item img {
+      width: 70px;
+      height: 70px;
+      margin-bottom: 25px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 4px 8px rgba(214, 0, 0, 0.1));
+    }
+
+    .feature-item:hover img {
+      transform: scale(1.15) rotateZ(10deg);
+      filter: drop-shadow(0 8px 16px rgba(214, 0, 0, 0.3));
+    }
+
+    .feature-item h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #00008b;
+    }
+
+    .feature-item p {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .catalog-section {
+      margin-bottom: 80px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .catalog-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .catalog-header h2 {
+      font-size: 42px;
+      font-weight: 700;
+      margin-bottom: 0;
+      color: #00008b;
+    }
+
+    @media (max-width: 768px) {
+      .catalog-header h2 {
+        font-size: 28px;
+      }
+
+      .catalog-header {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+    }
+    
+    .catalog-header .view-catalog-btn {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white;
+      padding: 14px 35px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 20px rgba(214, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .view-catalog-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .view-catalog-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .view-catalog-btn:hover {
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 10px 30px rgba(214, 0, 0, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .catalog-section p.subtitle {
+      font-size: 18px;
+      color: #666;
+      margin-bottom: 40px; 
+      margin-top: -10px;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .equipment-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 50, 0.1);
+      text-align: center;
+      border: 2px solid transparent;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      animation: fadeInUp 0.8s ease-out;
+      cursor: pointer;
+    }
+
+    .equipment-card:nth-child(1) { animation-delay: 0.2s; }
+    .equipment-card:nth-child(2) { animation-delay: 0.3s; }
+    .equipment-card:nth-child(3) { animation-delay: 0.4s; }
+
+    .equipment-card:hover {
+      transform: translateY(-15px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(0, 0, 50, 0.2);
+      border-color: #d60000;
+    }
+
+    .equipment-card img {
+      width: 100%;
+      height: 250px;
+      object-fit: contain;
+      margin-bottom: 20px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .equipment-card:hover img {
+      transform: scale(1.1);
+    }
+
+    .equipment-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #00008b;
+    }
+
+    .equipment-card p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 20px;
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .pricing {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 25px;
+      font-size: 14px;
+      font-weight: 600;
+      background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+      padding: 15px;
+      border-radius: 10px;
+    }
+
+    .pricing span {
+      color: #d60000;
+      font-weight: 800;
+      display: block;
+      margin-top: 6px;
+      font-size: 16px;
+    }
+
+    .rent-now-btn {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white;
+      padding: 16px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      width: 100%;
+      font-size: 15px;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: auto;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(214, 0, 0, 0.3);
+    }
+
+    .rent-now-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .rent-now-btn:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .rent-now-btn:hover {
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 10px 30px rgba(214, 0, 0, 0.5);
+      transform: translateY(-3px) scale(1.01);
+    }
+
+    .rent-now-btn:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+
+    footer {
+      background: linear-gradient(135deg, #00084d 0%, #001080 100%);
+      color: white;
+      padding: 60px 20px 30px;
+      margin-top: 80px;
+      font-size: 14px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    footer .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+      gap: 30px;
+    }
+
+    @media (max-width: 768px) {
+      footer .footer-container {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    
+    footer .footer-logo-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    @media (max-width: 768px) {
+      footer .footer-logo-text {
+        align-items: center;
+      }
+    }
+
+    footer h3 {
+        font-size: 24px;
+        font-weight: 800;
+        margin-bottom: 10px;
+        color: #ffffff;
+    }
+
+    footer p {
+        margin: 0;
+        color: #ccc;
+        line-height: 1.8;
+        animation: fadeInUp 0.8s ease-out 0.3s both;
+    }
+    
+    footer .footer-links {
+        display: flex;
+        align-items: center;
+        animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    @media (max-width: 768px) {
+      footer .footer-links {
+        flex-direction: column;
+      }
+    }
+
+    footer a {
+      color: #87ceeb;
+      text-decoration: none;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
+
+    footer a:hover {
+      color: #d60000;
+      text-decoration: underline;
+    }
+    
+    footer .social-icons {
+      display: flex;
+      gap: 15px;
+      animation: fadeInUp 0.8s ease-out 0.5s both;
+    }
+
+    footer .social-icons img {
+        width: 28px;
+        height: 28px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(0.8) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        cursor: pointer;
+    }
+
+    footer .social-icons img:hover {
+      transform: scale(1.2) rotateZ(10deg);
+      filter: brightness(1.2) drop-shadow(0 4px 8px rgba(214, 0, 0, 0.4));
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-section">
+      <img src="Logo_north_texas2.0.png" alt="North Texas Rentals Logo">
+      <div class="company-name">North Texas <span>Rentals</span></div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="Catalogo_north_texas_rentals.html">Catalog</a>
+      <a href="Data_north_texas_rentals.html">Data</a>
+      <a href="Notifications_north_texas_rentals.html">Notifications</a>
+      <a class="contact-btn" href="Contact_north_texas_rentals.html">CONTACT US</a>
+      <button id="headerLogoutBtn">Logout</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="hero-section">
+      <div class="hero-text">
+        <h1>Leaders in equipment rental</h1>
+        <p>We are a company dedicated to the rental of equipment and machinery.</p>
+        </div>
+      <div class="hero-image">
+        <img src="Maquinaria_north_texas.jpg" alt="Excavators"> </div>
+    </div>
+
+    <div class="why-choose-us">
+      <h2>Why choose our service?</h2>
+      <p>We offer the best equipment rental experience with professional services</p>
+      <div class="features-grid">
+        <div class="feature-item">
+          <img src="icono_de_ceritificado.png" alt="Certified"> <h3>Certified</h3>
+          <p>All our equipment is certified and in perfect condition.</p>
+        </div>
+        <div class="feature-item">
+          <img src="icono_disponibilidad.png" alt="24/7 Availability"> <h3>24/7 Availability</h3>
+          <p>Service available every day for emergencies and urgent projects.</p>
+        </div>
+        <div class="feature-item">
+          <img src="icono_seguridad.png" alt="Full Warranty"> <h3>Full Warranty</h3>
+          <p>Full warranty on all our equipment and technical service included.</p>
+        </div>
+        <div class="feature-item">
+          <img src="icono_envio.png" alt="Home Delivery"> <h3>Home Delivery</h3>
+          <p>We deliver the equipment wherever you need it.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="catalog-section">
+      <div class="catalog-header">
+        <h2>Catalog</h2>
+        <a href="Catalogo_north_texas_rentals.html" class="view-catalog-btn">VIEW CATALOG</a>
+      </div>
+      <p class="subtitle">Find what works best for you</p>
+      <div class="equipment-grid">
+        
+        <div class="equipment-card">
+          <img src="TL750.png" alt="Compact Kioti Tractor"> <h3>Compact Kioti Tractor TL750</h3>
+          <p>Compact, powerful, and versatile Kioti tractor, ideal for agriculture...</p>
+          <div class="pricing">
+            <div>Per Day: <span>$300</span></div>
+            <div>Per Week: <span>$1200</span></div>
+          </div>
+          <button class="rent-now-btn" data-machine="Kioti Tractor TL750">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+          <img src="Sany.png" alt="Sany Excavator"> <h3>Sany Excavator</h3>
+          <p>Brief description of the Sany Excavator...</p>
+          <div class="pricing">
+            <div>Per Day: <span>$300</span></div>
+            <div>Per Week: <span>$1,200</span></div>
+          </div>
+          <button class="rent-now-btn" data-machine="Sany Excavator 35u">Rent now</button>
+        </div>
+
+        <div class="equipment-card">
+          <img src="Kubota.png" alt="Kubota Excavator"> <h3>Kubota Excavator</h3>
+          <p>Brief description of the Kubota Excavator...</p>
+          <div class="pricing">
+            <div>Per Day: <span>$300</span></div>
+            <div>Per Week: <span>$1,200</span></div>
+          </div>
+          <button class="rent-now-btn" data-machine="Kubota Excavator SVL 65-2">Rent now</button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo-text">
+        <h3>North Texas Rentals</h3>
+      </div>
+      <div class="footer-links">
+        <p>By using this application you accept our <a href="#">terms of use</a> and our <a href="#">privacy policy</a>.</p>
+      </div>
+      <div class="social-icons">
+          <img src="instagram-icon.png" alt="Instagram">
+          <img src="facebook-icon.png" alt="Facebook">
+          <img src="whatsapp-icon.png" alt="WhatsApp">
+          <img src="email-icon.png" alt="Email">
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBI28ZY62HS-snbGfVJN7HJGBdCMRzG0wU",
+      authDomain: "northtexas-cfd0f.firebaseapp.com",
+      projectId: "northtexas-cfd0f",
+      storageBucket: "northtexas-cfd0f.appspot.com",
+      messagingSenderId: "1064140086938",
+      appId: "1:1064140086938:web:20acaf176ccc23ff200923"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const headerLogoutBtn = document.getElementById('headerLogoutBtn');
+
+    headerLogoutBtn.addEventListener('click', async () => {
+        await signOut(auth);
+        window.location.href = 'Login_north_texas_rentals.html';
+    });
+
+    
+    const rentNowButtons = document.querySelectorAll('.rent-now-btn');
+    rentNowButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const user = auth.currentUser;
+            const machine = this.getAttribute('data-machine');
+            
+            if(user) {
+                window.location.href = `Request_north_texas_rentals.html?machine=${machine}`;
+            } else {
+                window.location.href = 'Login_north_texas_rentals.html';
+            }
+        });
+    });
+
+    onAuthStateChanged(auth, (user) => {
+        if(user) {
+            headerLogoutBtn.style.display = 'inline-block';
+        } else {
+            headerLogoutBtn.style.display = 'none';
+        }
+    });
+  </script>
+
+</body>
+</html>

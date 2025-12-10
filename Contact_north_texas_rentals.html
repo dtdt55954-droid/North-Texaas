@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | North Texas Rentals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* --- ESTILOS GENERALES --- */
+    body {
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: #333;
+    }
+
+    /* --- HEADER --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 15px 50px;
+      border-bottom: 4px solid #d60000;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 50, 0.1);
+      animation: fadeInDown 0.6s ease-out;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    header img {
+      height: 55px;
+      transition: transform 0.3s ease;
+    }
+    
+    header img:hover {
+      transform: scale(1.05);
+    }
+    
+    .company-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00008b;
+      letter-spacing: 0.5px;
+    }
+    
+    .company-name span {
+      color: #d60000;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      padding: 12px 18px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      position: relative;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(214, 0, 0, 0.1);
+      border-radius: 6px;
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+      z-index: -1;
+    }
+    
+    nav a:hover::before {
+      transform: scaleX(1);
+    }
+    
+    nav a:hover {
+      color: #d60000;
+    }
+    .contact-btn {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 12px rgba(214, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid #d60000;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .contact-btn:active::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .contact-btn:hover {
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 6px 16px rgba(214, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* --- CONTENEDOR PRINCIPAL --- */
+    .contact-container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: #00008b;
+      margin-bottom: 10px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .section-description {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 50px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    /* --- INFORMATION GRID --- */
+    .info-grid {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 60px;
+      flex-wrap: wrap;
+    }
+
+    .info-card {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      text-align: center;
+      flex: 1;
+      min-width: 250px;
+      border-left: 4px solid #d60000;
+      animation: fadeInUp 0.8s ease-out;
+      transition: all 0.3s ease;
+    }
+
+    .info-card:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .info-card:nth-child(2) {
+      animation-delay: 0.3s;
+    }
+
+    .info-card:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+
+    .info-card h3 {
+      font-size: 20px;
+      color: #00008b;
+      margin-bottom: 15px;
+    }
+
+    .info-card p {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 5px;
+    }
+
+    .info-card a {
+      color: #d60000;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* --- FORMULARIO DE CONTACTO --- */
+    .form-section {
+      background-color: white;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeInUp 0.8s ease-out 0.4s both;
+    }
+
+    .form-section h3 {
+        color: #00008b;
+        margin-top: 0;
+        margin-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .form-group input, 
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus, 
+    .form-group textarea:focus {
+      border-color: #00008b;
+      outline: none;
+    }
+
+    .submit-btn {
+      background: linear-gradient(135deg, #00008b 0%, #000055 100%);
+      color: white;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .submit-btn:active::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .submit-btn:hover {
+      background: linear-gradient(135deg, #000055 0%, #000030 100%);
+      box-shadow: 0 6px 20px rgba(0, 0, 139, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: linear-gradient(135deg, #00084d 0%, #001080 100%);
+      color: white;
+      padding: 40px 20px;
+      margin-top: 60px;
+      font-size: 14px;
+    }
+    footer .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+    footer .footer-logo-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    footer h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    footer p {
+      margin: 0;
+      color: #ccc;
+    }
+    footer .footer-links {
+      display: flex;
+      align-items: center;
+    }
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    footer .social-icons img {
+      width: 24px;
+      height: 24px;
+      margin-left: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-section">
+      <img src="Logo_north_texas2.0.png" alt="North Texas Rentals Logo">
+      <div class="company-name">North Texas <span>Rentals</span></div>
+    </div>
+    <nav>
+      <a href="North_texas_rentals.html">Home</a> 
+      <a href="Catalogo_north_texas_rentals.html">Catalog</a> 
+      <a href="Data_north_texas_rentals.html">Data</a>
+      <a href="Notifications_north_texas_rentals.html">Notifications</a>
+      <a class="contact-btn" href="Contact_north_texas_rentals.html">CONTACT US</a>
+    </nav>
+  </header>
+
+  <div class="contact-container">
+    
+    <h1 class="section-title">Get in Touch</h1>
+    <p class="section-description">Have questions about our equipment or need a custom quote? We are here to help.</p>
+
+    <div class="info-grid">
+        
+        <div class="info-card">
+            <h3>Call Us</h3>
+            <p>For immediate assistance</p>
+            <p style="font-size: 20px; font-weight: bold; color: #333;">956-801-4802</p>
+        </div>
+
+        <div class="info-card">
+            <h3>Email Us</h3>
+            <p>Send us your inquiries</p>
+            <p><a href="mailto:southtexasrentals1@gmail.com">southtexasrentals1@gmail.com</a></p>
+        </div>
+
+        <div class="info-card">
+            <h3>Working Hours</h3>
+            <p>Mon - Sat: 7:00 AM - 6:00 PM</p>
+            <p>Sun: Closed</p>
+        </div>
+
+    </div>
+
+    <div class="form-section">
+        <h3>Send us a Message</h3>
+        <form id="contactForm">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" rows="5" placeholder="How can we help you?" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">SEND MESSAGE</button>
+        </form>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo-text">
+        <h3>North Texas Rentals</h3>
+      </div>
+      <div class="footer-links">
+        <p>By using this application you accept our <a href="#">terms of use</a> and our <a href="#">privacy policy</a>.</p>
+      </div>
+      <div class="social-icons">
+          <img src="instagram-icon.png" alt="Instagram">
+          <img src="facebook-icon.png" alt="Facebook">
+          <img src="whatsapp-icon.png" alt="WhatsApp">
+          <img src="email-icon.png" alt="Email">
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        alert("Thank you, " + name + ". We have received your message and will contact you at southtexasrentals1@gmail.com or your phone shortly.");
+        // Limpiar formulario
+        document.getElementById('contactForm').reset();
+    });
+  </script>
+
+</body>
+</html>

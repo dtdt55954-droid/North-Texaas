@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>North Texas Rentals - Secure Requests</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body { font-family: 'Roboto', sans-serif; margin:0; padding:0; background:#f8f8f8; color:#333; }
+header { display:flex; justify-content:space-between; align-items:center; background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%); padding:15px 50px; border-bottom:4px solid #d60000; position:sticky; top:0; z-index:1000; box-shadow: 0 4px 12px rgba(0, 0, 50, 0.1); }
+.logo-section { display:flex; align-items:center; gap:15px; }
+header img { height:55px; transition: transform 0.3s ease; }
+header img:hover { transform: scale(1.05); }
+.company-name { font-size:24px; font-weight:700; color:#00008b; letter-spacing:0.5px; }
+.company-name span { color:#d60000; }
+nav { display:flex; align-items:center; gap:5px; }
+nav a { text-decoration:none; color:#333; padding:12px 18px; font-weight:600; font-size:15px; transition: all 0.3s ease; border-radius:6px; position:relative; }
+nav a:hover { color:#d60000; background-color: rgba(214, 0, 0, 0.08); }
+nav a::after { content:''; position:absolute; bottom:8px; left:18px; right:18px; height:2px; background-color:#d60000; transform:scaleX(0); transition: transform 0.3s ease; }
+nav a:hover::after { transform:scaleX(1); }
+.contact-btn { background: linear-gradient(135deg, #d60000 0%, #b30000 100%); color:white; padding:12px 28px; border-radius:8px; text-decoration:none; font-weight:700; font-size:15px; box-shadow: 0 4px 12px rgba(214, 0, 0, 0.3); transition: all 0.3s ease; border:2px solid #d60000; }
+.contact-btn:hover { background: linear-gradient(135deg, #b30000 0%, #9a0000 100%); box-shadow: 0 6px 16px rgba(214, 0, 0, 0.4); transform:translateY(-2px); }
+#headerLogoutBtn { background: linear-gradient(135deg, #ff6b6b 0%, #d60000 100%); color:white; padding:12px 28px; border:2px solid #ff6b6b; border-radius:8px; cursor:pointer; font-weight:700; font-size:15px; transition: all 0.3s ease; box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3); margin-left:10px; display:inline-block !important; }
+#headerLogoutBtn:hover { background: linear-gradient(135deg, #d60000 0%, #b30000 100%); box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4); transform:translateY(-2px); }
+.container { max-width:800px; margin:40px auto; padding:40px 20px; background:white; border-radius:10px; box-shadow:0 4px 15px rgba(0,0,0,0.05); }
+h1,h2 { color:#00008b; }
+input,textarea { width:100%; padding:12px; margin-bottom:20px; border:1px solid #ccc; border-radius:5px; font-family:'Roboto',sans-serif; }
+input:focus, textarea:focus { border-color:#00008b; outline:none; }
+input[readonly] { background-color:#f5f5f5; color:#666; cursor:not-allowed; border-color:#ddd; }
+button { padding:12px; border:none; border-radius:6px; font-weight:bold; cursor:pointer; transition:0.3s; }
+button:hover { opacity:0.9; }
+.login-btn { background:#00008b; color:white; width:100%; margin-bottom:10px; }
+.register-btn { background:#28a745; color:white; width:100%; margin-bottom:10px; }
+.logout-btn { background:#d60000; color:white; width:100%; margin-bottom:10px; }
+.submit-btn { background:#00008b; color:white; width:100%; }
+.message { padding:10px; margin-bottom:20px; border-radius:5px; }
+.success { background:#28a745; color:white; }
+.error { background:#d60000; color:white; }
+</style>
+</head>
+<body>
+
+<header>
+<div class="logo-section">
+<img src="Logo_north_texas2.0.png" alt="Logo">
+<div class="company-name">North Texas <span>Rentals</span></div>
+</div>
+<nav>
+<a href="North_texas_rentals.html">Home</a>
+<a href="Catalogo_north_texas_rentals.html">Catalog</a>
+<a href="Notifications_north_texas_rentals.html">Notifications</a>
+<a class="contact-btn" href="Contact_north_texas_rentals.html">CONTACT US</a>
+<button id="headerLogoutBtn">Logout</button>
+</nav>
+</header>
+
+<div class="container">
+
+<h1>Secure User System & Requests</h1>
+
+    <div id="notificationBanner" style="display:none;padding:12px;margin-bottom:16px;border-radius:6px;background:#fff3cd;color:#856404;border:1px solid #ffeeba;">
+        <strong id="notifTitle"></strong>
+        <div id="notifMessage"></div>
+    </div>
+
+<div id="auth-section">
+<h2>Register / Login</h2>
+<input type="email" id="email" placeholder="Email">
+<input type="password" id="password" placeholder="Password">
+<button id="registerBtn" class="register-btn">Register</button>
+<button id="loginBtn" class="login-btn">Login</button>
+<div id="auth-message"></div>
+</div>
+
+<div id="user-section" style="display:none;">
+<h2>Welcome, <span id="user-name"></span></h2>
+<button id="logoutBtn" class="logout-btn">Logout</button>
+
+<h2>Send a Request</h2>
+<form id="requestForm">
+<input type="text" id="fullName" placeholder="Full Name" required>
+<input type="text" id="address" placeholder="Address" required>
+<input type="text" id="phone" placeholder="Phone Number" required>
+<input type="email" id="requestEmail" placeholder="Email" required>
+<input type="text" id="machine" placeholder="Machine Name" required>
+<textarea id="message" rows="4" placeholder="Additional Info" required></textarea>
+<button type="submit" class="submit-btn">Submit Request</button>
+</form>
+<div id="request-message"></div>
+</div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, serverTimestamp, query, where, orderBy, limit, onSnapshot } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBI28ZY62HS-snbGfVJN7HJGBdCMRzG0wU",
+  authDomain: "northtexas-cfd0f.firebaseapp.com",
+  projectId: "northtexas-cfd0f",
+  storageBucket: "northtexas-cfd0f.appspot.com",
+  messagingSenderId: "1064140086938",
+  appId: "1:1064140086938:web:20acaf176ccc23ff200923"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const authSection = document.getElementById('auth-section');
+const userSection = document.getElementById('user-section');
+const userNameSpan = document.getElementById('user-name');
+const authMessage = document.getElementById('auth-message');
+const requestMessage = document.getElementById('request-message');
+
+document.getElementById('registerBtn').addEventListener('click', async () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try {
+        await createUserWithEmailAndPassword(auth, email, password);
+        authMessage.innerHTML = "<div class='message success'>Registered successfully!</div>";
+    } catch (err) {
+        authMessage.innerHTML = "<div class='message error'>" + err.message + "</div>";
+    }
+});
+
+document.getElementById('loginBtn').addEventListener('click', async () => {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        authMessage.innerHTML = "<div class='message success'>Logged in successfully!</div>";
+    } catch (err) {
+        authMessage.innerHTML = "<div class='message error'>" + err.message + "</div>";
+    }
+});
+
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    await signOut(auth);
+    window.location.href = 'Login_north_texas_rentals.html';
+});
+
+document.getElementById('headerLogoutBtn').addEventListener('click', async () => {
+    await signOut(auth);
+    window.location.href = 'Login_north_texas_rentals.html';
+});
+
+onAuthStateChanged(auth, (user) => {
+    const notifBanner = document.getElementById('notificationBanner');
+    const notifTitle = document.getElementById('notifTitle');
+    const notifMessage = document.getElementById('notifMessage');
+
+    if(user) {
+        authSection.style.display = 'none';
+        userSection.style.display = 'block';
+        userNameSpan.textContent = user.email;
+
+        // realtime listen for latest request for this user
+        try {
+            const q = query(collection(db, 'requests'), where('userEmail', '==', user.email), orderBy('date', 'desc'), limit(1));
+            const unsubscribe = onSnapshot(q, (snapshot) => {
+                if(snapshot.empty) {
+                    notifBanner.style.display = 'none';
+                    return;
+                }
+                const doc = snapshot.docs[0];
+                const data = doc.data();
+                const status = data.status || 'pending';
+                const machine = data.machine || '';
+                if(status === 'in_transit') {
+                    notifBanner.style.display = 'block';
+                    notifBanner.style.background = '#d1e7dd';
+                    notifBanner.style.color = '#0f5132';
+                    notifTitle.textContent = 'Good news — your request is on the truck!';
+                    notifMessage.textContent = `Machine: ${machine}. The driver is on the way.`;
+                } else if(status === 'accepted') {
+                    notifBanner.style.display = 'block';
+                    notifBanner.style.background = '#cff4fc';
+                    notifBanner.style.color = '#055160';
+                    notifTitle.textContent = 'Your request was accepted';
+                    notifMessage.textContent = `Machine: ${machine}. Admin accepted your request.`;
+                } else if(status === 'declined') {
+                    notifBanner.style.display = 'block';
+                    notifBanner.style.background = '#f8d7da';
+                    notifBanner.style.color = '#842029';
+                    notifTitle.textContent = 'Your request was declined';
+                    notifMessage.textContent = `Machine: ${machine}. Please contact us for details.`;
+                } else {
+                    notifBanner.style.display = 'block';
+                    notifBanner.style.background = '#fff3cd';
+                    notifBanner.style.color = '#856404';
+                    notifTitle.textContent = 'Your request is pending';
+                    notifMessage.textContent = `Machine: ${machine}. We'll notify you when status changes.`;
+                }
+            }, (err) => { console.error('onSnapshot error:', err); });
+
+            // keep unsubscribe to stop listener when user logs out
+            window._requestsUnsubscribe = unsubscribe;
+        } catch (err) {
+            console.error('Error setting up listener:', err);
+        }
+
+    } else {
+        authSection.style.display = 'block';
+        userSection.style.display = 'none';
+        if(window._requestsUnsubscribe) {
+            window._requestsUnsubscribe();
+            window._requestsUnsubscribe = null;
+        }
+    }
+});
+
+// Auto-fill machine name from URL parameter
+const urlParams = new URLSearchParams(window.location.search);
+const machineParam = urlParams.get('machine');
+if(machineParam) {
+    document.getElementById('machine').value = decodeURIComponent(machineParam);
+    document.getElementById('machine').setAttribute('readonly', 'true');
+}
+
+document.getElementById('requestForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const user = auth.currentUser;
+    if(!user) return;
+
+    const requestData = {
+        fullName: document.getElementById('fullName').value,
+        address: document.getElementById('address').value,
+        phone: document.getElementById('phone').value,
+        requestEmail: document.getElementById('requestEmail').value,
+        machine: document.getElementById('machine').value,
+        message: document.getElementById('message').value,
+        userEmail: user.email,
+        date: serverTimestamp()
+    };
+
+    try {
+        await addDoc(collection(db, "requests"), requestData);
+        requestMessage.innerHTML = "<div class='message success'>Request submitted successfully! Redirecting to payment...</div>";
+        e.target.reset();
+        setTimeout(() => {
+            window.location.href = 'Payment_info_north_texas.html';
+        }, 1500);
+    } catch (err) {
+        requestMessage.innerHTML = "<div class='message error'>" + err.message + "</div>";
+    }
+});
+</script>
+
+</body>
+</html>

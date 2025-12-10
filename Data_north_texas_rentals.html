@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Equipment Data | North Texas Rentals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* --- HEADER --- */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 15px 50px;
+      border-bottom: 4px solid #d60000;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 50, 0.1);
+      animation: fadeInDown 0.6s ease-out;
+    }
+    
+    .logo-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    header img {
+      height: 55px;
+      transition: transform 0.3s ease;
+    }
+    
+    header img:hover {
+      transform: scale(1.05) rotateZ(5deg);
+    }
+    
+    .company-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #00008b;
+      letter-spacing: 0.5px;
+    }
+    
+    .company-name span {
+      color: #d60000;
+    }
+    
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    nav a {
+      text-decoration: none;
+      color: #333;
+      padding: 12px 18px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      position: relative;
+    }
+    
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(214, 0, 0, 0.1);
+      border-radius: 6px;
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+      z-index: -1;
+    }
+    
+    nav a:hover::before {
+      transform: scaleX(1);
+    }
+    
+    nav a:hover {
+      color: #d60000;
+    }
+
+    .contact-btn {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 12px rgba(214, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid #d60000;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+    
+    .contact-btn:active::before {
+      width: 300px;
+      height: 300px;
+    }
+    
+    .contact-btn:hover {
+      background: linear-gradient(135deg, #b30000 0%, #9a0000 100%);
+      box-shadow: 0 6px 16px rgba(214, 0, 0, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* --- MAIN CONTENT --- */
+    .container {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #00008b;
+      margin-bottom: 10px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      color: #666;
+      margin-bottom: 40px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+
+    /* --- TABLE STYLES --- */
+    .table-wrapper {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      animation: fadeInUp 0.8s ease-out 0.3s both;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+
+    thead {
+      background: linear-gradient(135deg, #00008b 0%, #000055 100%);
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+
+    th {
+      padding: 18px;
+      text-align: left;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      font-size: 14px;
+      text-transform: uppercase;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    th:last-child {
+      border-right: none;
+    }
+
+    td {
+      padding: 16px 18px;
+      border-bottom: 1px solid #e0e0e0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    tbody tr:hover {
+      background-color: #f5f7fa;
+      transition: background-color 0.2s ease;
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tbody tr:nth-child(even):hover {
+      background-color: #f0f2f5;
+    }
+
+    .price-cell {
+      font-weight: 600;
+      color: #d60000;
+    }
+
+    .status-available {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .status-limited {
+      color: #f59e0b;
+      font-weight: 600;
+    }
+
+    .status-unavailable {
+      color: #ef4444;
+      font-weight: 600;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: linear-gradient(135deg, #00084d 0%, #001080 100%);
+      color: white;
+      padding: 40px 20px;
+      margin-top: 60px;
+      font-size: 14px;
+    }
+
+    footer .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    footer .footer-logo-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    footer h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: white;
+    }
+
+    footer p {
+      margin: 0;
+      color: #ccc;
+    }
+
+    footer .footer-links {
+      display: flex;
+      align-items: center;
+    }
+
+    footer a {
+      color: #ccc;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer .social-icons img {
+      width: 24px;
+      height: 24px;
+      margin-left: 15px;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 968px) {
+      header {
+        padding: 15px 30px;
+      }
+
+      nav {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      th, td {
+        padding: 12px;
+        font-size: 13px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+
+      .logo-section {
+        width: 100%;
+        justify-content: center;
+      }
+
+      nav {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .container {
+        margin: 20px auto;
+      }
+
+      th, td {
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      footer .footer-container {
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-section">
+      <img src="Logo_north_texas2.0.png" alt="North Texas Rentals Logo">
+      <div class="company-name">North Texas <span>Rentals</span></div>
+    </div>
+    <nav>
+      <a href="North_texas_rentals.html">Home</a> 
+      <a href="Catalogo_north_texas_rentals.html">Catalog</a> 
+      <a href="Data_north_texas_rentals.html">Data</a>
+      <a href="Notifications_north_texas_rentals.html">Notifications</a>
+      <a class="contact-btn" href="Contact_north_texas_rentals.html">CONTACT US</a>
+      <button id="headerLogoutBtn" style="display: none; background: linear-gradient(135deg, #d60000 0%, #b30000 100%); color: white; padding: 12px 28px; border-radius: 8px; border: 2px solid #d60000; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 4px 12px rgba(214, 0, 0, 0.3); transition: all 0.3s ease; position: relative; overflow: hidden;">
+        LOGOUT
+      </button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Equipment Data</h1>
+    <p class="subtitle">Complete catalog of all available rental equipment with pricing and availability</p>
+
+    <div class="table-wrapper">
+      <table id="equipmentTable">
+        <thead>
+          <tr>
+            <th>Equipment Name</th>
+            <th>Category</th>
+            <th>Daily Rate</th>
+            <th>Weekly Rate</th>
+            <th>Monthly Rate</th>
+            <th>Availability</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mini Excavator</td>
+            <td>Heavy Equipment</td>
+            <td class="price-cell">$150</td>
+            <td class="price-cell">$850</td>
+            <td class="price-cell">$2,800</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Compact excavator for small construction projects</td>
+          </tr>
+          <tr>
+            <td>Wheel Loader</td>
+            <td>Heavy Equipment</td>
+            <td class="price-cell">$200</td>
+            <td class="price-cell">$1,100</td>
+            <td class="price-cell">$3,500</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Multi-purpose wheel loader for material handling</td>
+          </tr>
+          <tr>
+            <td>Bulldozer</td>
+            <td>Heavy Equipment</td>
+            <td class="price-cell">$250</td>
+            <td class="price-cell">$1,400</td>
+            <td class="price-cell">$4,200</td>
+            <td><span class="status-limited">Limited</span></td>
+            <td>Powerful bulldozer for grading and clearing</td>
+          </tr>
+          <tr>
+            <td>Backhoe</td>
+            <td>Construction</td>
+            <td class="price-cell">$120</td>
+            <td class="price-cell">$700</td>
+            <td class="price-cell">$2,200</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Versatile backhoe for excavation and lifting</td>
+          </tr>
+          <tr>
+            <td>Skid Steer Loader</td>
+            <td>Construction</td>
+            <td class="price-cell">$100</td>
+            <td class="price-cell">$600</td>
+            <td class="price-cell">$1,800</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Compact loader for tight spaces</td>
+          </tr>
+          <tr>
+            <td>Telehandler</td>
+            <td>Construction</td>
+            <td class="price-cell">$130</td>
+            <td class="price-cell">$750</td>
+            <td class="price-cell">$2,500</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Boom lift for elevated material placement</td>
+          </tr>
+          <tr>
+            <td>Concrete Mixer</td>
+            <td>Tools</td>
+            <td class="price-cell">$50</td>
+            <td class="price-cell">$300</td>
+            <td class="price-cell">$900</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Electric concrete mixer for construction</td>
+          </tr>
+          <tr>
+            <td>Power Drill</td>
+            <td>Tools</td>
+            <td class="price-cell">$25</td>
+            <td class="price-cell">$150</td>
+            <td class="price-cell">$450</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Professional grade power drill</td>
+          </tr>
+          <tr>
+            <td>Compressor</td>
+            <td>Tools</td>
+            <td class="price-cell">$40</td>
+            <td class="price-cell">$250</td>
+            <td class="price-cell">$750</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Air compressor for pneumatic tools</td>
+          </tr>
+          <tr>
+            <td>Scaffolding Set</td>
+            <td>Safety Equipment</td>
+            <td class="price-cell">$75</td>
+            <td class="price-cell">$450</td>
+            <td class="price-cell">$1,200</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Complete scaffolding system for height work</td>
+          </tr>
+          <tr>
+            <td>Boom Lift</td>
+            <td>Access Equipment</td>
+            <td class="price-cell">$180</td>
+            <td class="price-cell">$950</td>
+            <td class="price-cell">$3,000</td>
+            <td><span class="status-available">Available</span></td>
+            <td>Articulating boom lift for high access</td>
+          </tr>
+          <tr>
+            <td>Scissor Lift</td>
+            <td>Access Equipment</td>
+            <td class="price-cell">$120</td>
+            <td class="price-cell">$700</td>
+            <td class="price-cell">$2,100</td>
+            <td><span class="status-limited">Limited</span></td>
+            <td>Vertical scissor lift for platform access</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-logo-text">
+        <h3>North Texas Rentals</h3>
+      </div>
+      <div class="footer-links">
+        <p>By using this application you accept our <a href="#">terms of use</a> and our <a href="#">privacy policy</a>.</p>
+      </div>
+      <div class="social-icons">
+          <img src="instagram-icon.png" alt="Instagram">
+          <img src="facebook-icon.png" alt="Facebook">
+          <img src="whatsapp-icon.png" alt="WhatsApp">
+          <img src="email-icon.png" alt="Email">
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBMbSXXGX5nJVLNa6lIqLhWe0cKZjqJcTk",
+      authDomain: "north-texas-rentals.firebaseapp.com",
+      projectId: "north-texas-rentals",
+      storageBucket: "north-texas-rentals.appspot.com",
+      messagingSenderId: "894313911159",
+      appId: "1:894313911159:web:e2b7f96ead4c0819c61f30"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    onAuthStateChanged(auth, (user) => {
+      const logoutBtn = document.getElementById('headerLogoutBtn');
+      if (user) {
+        logoutBtn.style.display = 'block';
+        logoutBtn.addEventListener('click', () => {
+          signOut(auth).then(() => {
+            window.location.href = 'Login_north_texas_rentals.html';
+          });
+        });
+      } else {
+        logoutBtn.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>

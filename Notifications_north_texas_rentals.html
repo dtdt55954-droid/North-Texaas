@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notifications | North Texas Rentals</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Roboto', sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: #333; min-height: 100vh; }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(135deg, #ffffff 0%, #f9f9f9 100%);
+      padding: 15px 50px;
+      border-bottom: 4px solid #d60000;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0, 0, 50, 0.1);
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    .logo-section { display: flex; align-items: center; gap: 15px; }
+    header img { height: 55px; transition: transform 0.3s ease; }
+    header img:hover { transform: scale(1.05) rotateZ(5deg); }
+    .company-name { font-size: 24px; font-weight: 700; color: #00008b; letter-spacing: 0.5px; }
+    .company-name span { color: #d60000; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #333;
+      padding: 12px 18px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      border-radius: 6px;
+      position: relative;
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(214, 0, 0, 0.1);
+      border-radius: 6px;
+      transform: scaleX(0);
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-origin: left;
+      z-index: -1;
+    }
+
+    nav a:hover::before { transform: scaleX(1); }
+    nav a:hover { color: #d60000; }
+
+    .contact-btn {
+      background: linear-gradient(135deg, #d60000 0%, #b30000 100%);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      box-shadow: 0 4px 12px rgba(214, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      border: 2px solid #d60000;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-btn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .contact-btn:active::before { width: 300px; height: 300px; }
+    .contact-btn:hover { background: linear-gradient(135deg, #b30000 0%, #9a0000 100%); box-shadow: 0 6px 16px rgba(214, 0, 0, 0.4); transform: translateY(-2px); }
+
+    #headerLogoutBtn {
+      background: linear-gradient(135deg, #ff6b6b 0%, #d60000 100%);
+      color: white;
+      padding: 12px 28px;
+      border: 2px solid #ff6b6b;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+      margin-left: 10px;
+      display: none;
+    }
+
+    #headerLogoutBtn:hover { background: linear-gradient(135deg, #d60000 0%, #b30000 100%); box-shadow: 0 6px 16px rgba(255, 107, 107, 0.4); transform: translateY(-2px); }
+
+    .container { max-width: 900px; margin: 40px auto; padding: 40px 20px; background: white; border-radius: 10px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); }
+    h1 { font-size: 32px; font-weight: 700; color: #00008b; margin-bottom: 10px; }
+    .subtitle { font-size: 16px; color: #666; margin-bottom: 30px; }
+
+    .notification-item {
+      padding: 16px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border-left: 4px solid #ccc;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .notification-item.pending {
+      background: #fff3cd;
+      border-left-color: #ffc107;
+      color: #856404;
+    }
+
+    .notification-item.accepted {
+      background: #cff4fc;
+      border-left-color: #0dcaf0;
+      color: #055160;
+    }
+
+    .notification-item.in_transit {
+      background: #d1e7dd;
+      border-left-color: #198754;
+      color: #0f5132;
+    }
+
+    .notification-item.declined {
+      background: #f8d7da;
+      border-left-color: #dc3545;
+      color: #842029;
+    }
+
+    .notif-content { flex: 1; }
+    .notif-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+    .notif-details { font-size: 14px; }
+    .notif-date { font-size: 12px; opacity: 0.8; }
+
+    .empty-state { text-align: center; color: #999; padding: 40px 20px; }
+
+    footer {
+      background: linear-gradient(135deg, #00084d 0%, #001080 100%);
+      color: white;
+      padding: 40px 20px;
+      margin-top: 60px;
+      font-size: 14px;
+    }
+
+    footer .footer-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1200px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    footer h3 { font-size: 24px; font-weight: bold; margin-bottom: 10px; color: white; }
+    footer p { margin: 0; color: #ccc; }
+    footer a { color: #ccc; text-decoration: none; margin: 0 10px; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-section">
+      <img src="Logo_north_texas2.0.png" alt="North Texas Rentals Logo">
+      <div class="company-name">North Texas <span>Rentals</span></div>
+    </div>
+    <nav>
+      <a href="North_texas_rentals.html">Home</a> 
+      <a href="Catalogo_north_texas_rentals.html">Catalog</a>
+      <a href="Notifications_north_texas_rentals.html">Notifications</a>
+      <a class="contact-btn" href="Contact_north_texas_rentals.html">CONTACT US</a>
+      <button id="headerLogoutBtn">Logout</button>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Your Notifications</h1>
+    <p class="subtitle">Track the status of your equipment rental requests</p>
+
+    <div id="notificationsContainer">
+      <div class="empty-state">Loading...</div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <h3>North Texas Rentals</h3>
+      </div>
+      <div>
+        <p>By using this application you accept our <a href="#">terms of use</a> and our <a href="#">privacy policy</a>.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+    import { getFirestore, collection, query, where, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBI28ZY62HS-snbGfVJN7HJGBdCMRzG0wU",
+      authDomain: "northtexas-cfd0f.firebaseapp.com",
+      projectId: "northtexas-cfd0f",
+      storageBucket: "northtexas-cfd0f.appspot.com",
+      messagingSenderId: "1064140086938",
+      appId: "1:1064140086938:web:20acaf176ccc23ff200923"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    const logoutBtn = document.getElementById('headerLogoutBtn');
+    const notifContainer = document.getElementById('notificationsContainer');
+
+    logoutBtn.addEventListener('click', async () => {
+      await signOut(auth);
+      window.location.href = 'Login_north_texas_rentals.html';
+    });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        logoutBtn.style.display = 'block';
+
+        // Load user's requests (order on client to avoid requiring composite index)
+        const q = query(collection(db, 'requests'), where('userEmail', '==', user.email));
+        onSnapshot(q, (snapshot) => {
+          if (snapshot.empty) {
+            notifContainer.innerHTML = '<div class="empty-state">No requests yet. <a href="North_texas_rentals.html">Browse equipment</a></div>';
+            return;
+          }
+
+          notifContainer.innerHTML = '';
+          // Convert docs to array and sort by date descending (robust to missing dates)
+          const docs = snapshot.docs.slice();
+          docs.sort((a, b) => {
+            const da = a.data().date;
+            const dbDate = b.data().date;
+            const ta = (da && typeof da.toDate === 'function') ? da.toDate().getTime() : (da instanceof Date ? da.getTime() : (typeof da === 'string' ? Date.parse(da) : 0));
+            const tb = (dbDate && typeof dbDate.toDate === 'function') ? dbDate.toDate().getTime() : (dbDate instanceof Date ? dbDate.getTime() : (typeof dbDate === 'string' ? Date.parse(dbDate) : 0));
+            return tb - ta;
+          });
+
+          docs.forEach((doc) => {
+            const data = doc.data();
+            const status = data.status || 'pending';
+            const machine = data.machine || 'Equipment';
+            let dateStr = '';
+            if (data.date) {
+              if (typeof data.date === 'object' && data.date.toDate) {
+                dateStr = data.date.toDate().toLocaleString();
+              } else if (data.date instanceof Date) {
+                dateStr = data.date.toLocaleString();
+              } else if (typeof data.date === 'string') {
+                dateStr = data.date;
+              }
+            }
+
+            const statusText = {
+              'pending': 'Pending Review',
+              'accepted': 'Accepted',
+              'in_transit': 'On the Way',
+              'declined': 'Declined'
+            }[status] || status;
+
+            const item = document.createElement('div');
+            item.className = `notification-item ${status}`;
+            item.innerHTML = `
+              <div class="notif-content">
+                <div class="notif-title">${statusText}</div>
+                <div class="notif-details">Machine: <strong>${machine}</strong></div>
+                <div class="notif-date">${dateStr}</div>
+              </div>
+            `;
+            notifContainer.appendChild(item);
+          });
+        }, (err) => {
+          console.error('Error loading notifications:', err);
+          const msg = (err && err.message) ? err.message : String(err);
+          notifContainer.innerHTML = `<div class="empty-state">Error loading notifications: ${msg}</div>`;
+        });
+
+      } else {
+        logoutBtn.style.display = 'none';
+        window.location.href = 'Login_north_texas_rentals.html';
+      }
+    });
+  </script>
+
+</body>
+</html>

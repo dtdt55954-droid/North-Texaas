@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | North Texas Rentals</title>
+    <style>
+        body {margin:0;padding:0;font-family:'Arial',sans-serif;background:linear-gradient(135deg,#0056b3 50%,#d92525 50%);display:flex;justify-content:center;align-items:center;min-height:100vh;padding:20px;box-sizing:border-box;}
+        .contenedor-registro {display:flex;background-color:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,0.2);overflow:hidden;width:900px;max-width:100%;}
+        .columna-formulario {flex:1.2;padding:40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;}
+        .contenedor-logo {margin-bottom:30px;text-align:left;}
+        .imagen-logo {max-width:100px;height:auto;display:block;}
+        h2 {font-size:24px;color:#333;margin-bottom:25px;margin-top:0;}
+        .campo-entrada {margin-bottom:15px;}
+        .campo-entrada label {display:block;font-size:13px;font-weight:bold;color:#555;margin-bottom:5px;}
+        .campo-entrada input {width:100%;padding:12px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box;font-size:14px;}
+        .campo-entrada input:focus {border-color:#007bff;outline:none;}
+        .boton-registro {width:100%;padding:12px;background-color:#007bff;color:#fff;border:none;border-radius:5px;font-size:16px;font-weight:bold;cursor:pointer;transition:background-color 0.3s;margin-top:10px;}
+        .boton-registro:hover {background-color:#0056b3;}
+        .enlace-login {margin-top:25px;text-align:center;font-size:14px;color:#666;}
+        .enlace-login a {color:#007bff;text-decoration:none;font-weight:bold;margin-left:5px;}
+        .enlace-login a:hover {text-decoration:underline;}
+        .columna-imagen {flex:1;background-image:url('https://blogs.ucontinental.edu.pe/wp-content/uploads/2022/05/te-gusta-la-construccion-seis-razones-para-estudiar-ingenieria-civil-universidad-continental-3.jpg');background-color:#0056b3;background-size:cover;background-position:center;display:flex;justify-content:center;align-items:center;position:relative;min-height:600px;}
+        .columna-imagen::before {content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,50,150,0.4);z-index:1;}
+        .nombre-empresa {font-size:28px;font-weight:bold;color:#fff;text-shadow:2px 2px 8px rgba(0,0,0,0.8);z-index:2;text-align:center;padding:20px;}
+        @media(max-width:768px){.contenedor-registro{flex-direction:column;width:100%;}.columna-imagen{min-height:200px;order:-1;}.nombre-empresa{font-size:22px;}}
+    </style>
+</head>
+<body>
+
+<div class="contenedor-registro">
+    <div class="columna-formulario">
+        <div class="contenedor-logo">
+            <img src="Logo_north_texas2.0.png" alt="Logo North Texas Rentals" class="imagen-logo">
+        </div>
+
+        <h2>CREATE ACCOUNT</h2>
+        <form id="formulario-registro">
+            <div class="campo-entrada">
+                <label for="nombre">FULL NAME</label>
+                <input type="text" id="nombre" name="nombre" placeholder="John Doe" required>
+            </div>
+            <div class="campo-entrada">
+                <label for="correo">EMAIL ADDRESS</label>
+                <input type="email" id="correo" name="correo" placeholder="example@ntrentals.com" required>
+            </div>
+            <div class="campo-entrada">
+                <label for="contrasena">PASSWORD</label>
+                <input type="password" id="contrasena" name="contrasena" placeholder="Minimum 8 characters" required minlength="8">
+            </div>
+            <div class="campo-entrada">
+                <label for="confirmar-contrasena">CONFIRM PASSWORD</label>
+                <input type="password" id="confirmar-contrasena" name="confirmar-contrasena" placeholder="Repeat password" required>
+            </div>
+            <button type="submit" class="boton-registro">SIGN UP</button>
+            <div class="enlace-login">
+                Already have an account? <a href="Login_north_texas_rentals.html">Login here</a>
+            </div>
+        </form>
+    </div>
+    <div class="columna-imagen">
+        <div class="nombre-empresa">North Texas Rentals</div>
+    </div>
+</div>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBI28ZY62HS-snbGfVJN7HJGBdCMRzG0wU",
+      authDomain: "northtexas-cfd0f.firebaseapp.com",
+      projectId: "northtexas-cfd0f",
+      storageBucket: "northtexas-cfd0f.appspot.com",
+      messagingSenderId: "1064140086938",
+      appId: "1:1064140086938:web:20acaf176ccc23ff200923"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const formulario = document.getElementById('formulario-registro');
+
+    formulario.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const nombre = document.getElementById('nombre').value;
+        const correo = document.getElementById('correo').value;
+        const contrasena = document.getElementById('contrasena').value;
+        const confirmarContrasena = document.getElementById('confirmar-contrasena').value;
+
+        if(contrasena !== confirmarContrasena){
+            alert('Error: Passwords do not match.');
+            return;
+        }
+
+        createUserWithEmailAndPassword(auth, correo, contrasena)
+        .then((userCredential) => {
+            alert('Successfully registered, ' + nombre + '!');
+            window.location.href = 'Login_north_texas_rentals.html';
+        })
+        .catch((error) => {
+            alert('Error: ' + error.message);
+        });
+    });
+</script>
+
+</body>
+</html>
